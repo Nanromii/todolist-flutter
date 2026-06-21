@@ -1,4 +1,6 @@
+import 'package:demo/buttons/add-task.button.dart';
 import 'package:demo/containers/card-body.container.dart';
+import 'package:demo/entities/task.entity.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,6 +9,13 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  final List<Task> taskList = const [
+    Task(id: '001', name: 'karina'),
+    Task(id: '002', name: 'winter'),
+    Task(id: '003', name: 'giselle'),
+    Task(id: '004', name: 'ningning'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +31,7 @@ class MyApp extends StatelessWidget {
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: Column(
-          children: [
-            CardBody(text: "Karina"),
-            CardBody(text: "Karinu"),
-            CardBody(text: "Winter"),
-            CardBody(text: "Summer"),
-            CardBody(text: "Giselle"),
-            CardBody(text: "Gazelle"),
-            CardBody(text: "NingNing"),
-            CardBody(text: "NangNang"),
-          ],
+          children: taskList.map((task) => CardBody(text: task.name)).toList(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -44,31 +44,7 @@ class MyApp extends StatelessWidget {
             isScrollControlled: true,
             context: context,
             builder: (BuildContext context) {
-              return Padding(
-                padding: MediaQuery.of(context).viewInsets,
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Column(
-                    children: [
-                      TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Your task',
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () => {},
-                          child: Text("Add Task"),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
+              return AddTaskButton();
             },
           ),
         },
