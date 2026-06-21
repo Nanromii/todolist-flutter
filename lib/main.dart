@@ -21,7 +21,27 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.blue,
         centerTitle: true,
       ),
-      body: Text("Karina xinh vaix car loonf luoon"),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 20,
+        ),
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              color: Colors.purple,
+              height: 20,
+            ),
+            Text("Karina"),
+            Text("Katarinabluu"),
+            Text("Karinu"),
+            Text("Karichim"),
+            Text("StupidCheeseCat"),
+            Text("YuJimin"),
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {},
         child: Icon(
