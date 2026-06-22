@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AddTaskButton extends StatelessWidget {
-  const AddTaskButton({super.key});
+  AddTaskButton({super.key, required this.addTask});
+  final Function addTask;
+  String nameTask = '';
+
+  void handleOnClick(BuildContext context) {
+    if (nameTask.isNotEmpty) {
+      addTask(nameTask);
+    }
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +22,7 @@ class AddTaskButton extends StatelessWidget {
         child: Column(
           children: [
             TextField(
+              onChanged: (text) => {nameTask = text},
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Your task',
@@ -22,7 +33,7 @@ class AddTaskButton extends StatelessWidget {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () => {},
+                onPressed: () => handleOnClick(context),
                 child: Text("Add Task"),
               ),
             ),

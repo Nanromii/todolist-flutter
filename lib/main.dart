@@ -7,15 +7,23 @@ void main() {
   runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  final List<Task> taskList = const [
-    Task(id: '001', name: 'karina'),
-    Task(id: '002', name: 'winter'),
-    Task(id: '003', name: 'giselle'),
-    Task(id: '004', name: 'ningning'),
-  ];
+  @override
+  State<MyApp> createState() {
+    return _MyApp();
+  }
+}
+
+class _MyApp extends State<MyApp> {
+  final List<Task> taskList = [];
+
+  void handleAddTask(String name) {
+    setState(() {
+      taskList.add(Task(id: DateTime.now().toString(), name: name));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +52,7 @@ class MyApp extends StatelessWidget {
             isScrollControlled: true,
             context: context,
             builder: (BuildContext context) {
-              return AddTaskButton();
+              return AddTaskButton(addTask: handleAddTask);
             },
           ),
         },
