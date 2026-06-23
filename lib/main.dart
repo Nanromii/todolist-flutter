@@ -19,6 +19,12 @@ class MyApp extends StatefulWidget {
 class _MyApp extends State<MyApp> {
   final List<Task> taskList = [];
 
+  void deleteTask(String id) {
+    setState(() {
+      taskList.removeWhere((item) => item.id == id);
+    });
+  }
+
   void handleAddTask(String name) {
     setState(() {
       taskList.add(Task(id: DateTime.now().toString(), name: name));
@@ -39,11 +45,13 @@ class _MyApp extends State<MyApp> {
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: Column(
-          children: taskList.map((task) => CardBody(text: task.name)).toList(),
+          children: taskList
+              .map((task) => CardBody(task: task, deleteTask: deleteTask))
+              .toList(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {
+        onPressed: () {
           showModalBottomSheet(
             backgroundColor: Colors.grey[400],
             shape: RoundedRectangleBorder(
@@ -54,7 +62,7 @@ class _MyApp extends State<MyApp> {
             builder: (BuildContext context) {
               return AddTaskButton(addTask: handleAddTask);
             },
-          ),
+          );
         },
         child: Icon(Icons.add, size: 40),
       ),
